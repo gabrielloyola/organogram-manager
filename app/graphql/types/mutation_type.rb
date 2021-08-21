@@ -7,5 +7,6 @@ module Types
     field :create_employee,  mutation: Mutations::Employees::CreateEmployee
     field :delete_employee,  mutation: Mutations::Employees::DeleteEmployee
     field :delegate_manager, mutation: Mutations::Employees::DelegateManager
+    field :unassign_manager, mutation: Mutations::Employees::UnassignManager
   end
 end
