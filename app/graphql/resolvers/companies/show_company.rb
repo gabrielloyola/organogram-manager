@@ -2,7 +2,9 @@
 
 module Resolvers
   module Companies
-    class Show < GraphQL::Schema::Resolver
+    class ShowCompany < GraphQL::Schema::Resolver
+      description 'Retrieves a Company by it\'s ID'
+
       argument :id, ID, required: true
 
       type Types::CompanyType, null: false
