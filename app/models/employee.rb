@@ -11,6 +11,6 @@ class Employee < ApplicationRecord
     return if manager_id.blank? || !manager_id_changed?
     return if manager.company.eql?(company)
 
-    errors.add(self, 'The manager\'s company must be the same of the employee\'s')
+    errors.add(:manager, 'Company must be the same of the employee\'s')
   end
 end
