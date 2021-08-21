@@ -5,12 +5,12 @@ module Mutations
     class DeleteEmployee < BaseMutation
       description 'Delete an Employee'
 
-      argument :id, ID, required: true
+      argument :employee_id, ID, required: true
 
       type Types::EmployeeType
 
-      def resolve(id:)
-        Employee.find(id).destroy!
+      def resolve(employee_id:)
+        Employee.find(employee_id).destroy!
       rescue ActiveRecord::RecordNotFound => e
         GraphQL::ExecutionError.new(e)
       end

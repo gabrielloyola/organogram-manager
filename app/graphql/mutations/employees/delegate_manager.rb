@@ -5,14 +5,14 @@ module Mutations
     class DelegateManager < BaseMutation
       description 'Delegate a manager to an Employee'
 
-      argument :id,         ID, required: true
-      argument :manager_id, ID, required: true
+      argument :employee_id, ID, required: true
+      argument :manager_id,  ID, required: true
 
       type Types::EmployeeType
 
-      def resolve(id:, manager_id:)
+      def resolve(employee_id:, manager_id:)
         manager = Employee.find(manager_id)
-        employee = Employee.find(id)
+        employee = Employee.find(employee_id)
 
         employee.update!(manager: manager)
 

@@ -5,12 +5,12 @@ module Resolvers
     class ShowCompany < GraphQL::Schema::Resolver
       description 'Retrieves a Company by it\'s ID'
 
-      argument :id, ID, required: true
+      argument :company_id, ID, required: true
 
       type Types::CompanyType, null: false
 
-      def resolve(id:)
-        Company.find(id)
+      def resolve(company_id:)
+        Company.find(company_id)
       rescue ActiveRecord::RecordNotFound => e
         GraphQL::ExecutionError.new(e)
       end

@@ -5,12 +5,12 @@ module Resolvers
     class ListEmployees < GraphQL::Schema::Resolver
       description 'List all Employees of a Company'
 
-      argument :id, ID, required: true
+      argument :company_id, ID, required: true
 
       type Types::EmployeeType.connection_type, null: false
 
-      def resolve(id:)
-        Company.find(id).employees
+      def resolve(company_id:)
+        Company.find(company_id).employees
       rescue ActiveRecord::RecordNotFound => e
         GraphQL::ExecutionError.new(e)
       end
