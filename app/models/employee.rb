@@ -7,19 +7,27 @@ class Employee < ApplicationRecord
 
   validates :name, :email, presence: true
 
-  validate :same_company, :subordinate_loop
+  validate :same_company, :subordinate_loop, :manage_himself,
+           unless: -> { manager_id.blank? || !manager_id_changed? }
 
   def same_company
-    return if manager_id.blank? || !manager_id_changed?
     return if manager.company.eql?(company)
 
     errors.add(:manager, 'Company must be the same of the employee\'s')
   end
 
   def subordinate_loop
-    return if manager_id.blank? || !manager_id_changed?
-    return if manager.manager != self
+    current_manager = manager
 
-    errors.add(:manager, 'Can\'t be one of the subordinates')
+    while current_manager.present?
+      errors.add(:manager, 'Can\'t be one of the subordinates') if current_manager.eql?(self)
+      current_manager = current_manager.manager
+    end
+  end
+
+  def manage_himself
+    return if manager != self
+
+    errors.add(:manager, 'Can\'t be the employee')
   end
 end
