@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 2021_08_21_054735) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.bigint "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
