@@ -4,7 +4,7 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :show_company, resolver: Resolvers::ShowCompany
+    field :show_company, resolver: Resolvers::Companies::Show
     field :all_companies, [CompanyType], null: false, description: 'List all Companies'
 
     def all_companies
