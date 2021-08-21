@@ -12,8 +12,13 @@ module Mutations
 
       type Types::EmployeeType
 
-      def resolve(name:, email:, company_id:)
-        Employee.create!(name: name, email: email, company_id: company_id)
+      def resolve(name:, email:, company_id:, manager_id: nil)
+        employee = Employee.new(name: name, email: email, company_id: company_id)
+
+        employee.manager_id = manager_id if manager_id.present?
+        employee.save!
+
+        employee
       rescue ActiveRecord::RecordInvalid => e
         GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
       end
