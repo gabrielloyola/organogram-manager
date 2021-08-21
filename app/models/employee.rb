@@ -8,7 +8,9 @@ class Employee < ApplicationRecord
   validates :name, :email, presence: true
 
   validate :same_company, :subordinate_loop, :manage_himself,
-           unless: -> { manager_id.blank? || !manager_id_changed? }
+           unless: -> { manager_id.nil? || !manager_id_changed? }
+
+  before_destroy :delegate_subordinates, if: -> { subordinates.any? && manager.present? }
 
   def same_company
     return if manager.company.eql?(company)
@@ -29,5 +31,9 @@ class Employee < ApplicationRecord
     return if manager != self
 
     errors.add(:manager, 'Can\'t be the employee')
+  end
+
+  def delegate_subordinates
+    subordinates.each { |subordinate| subordinate.update!(manager: manager) }
   end
 end
