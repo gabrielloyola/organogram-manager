@@ -37,14 +37,6 @@ RSpec.describe Employee, type: :model do
     end
 
     describe '#subordinate_loop' do
-      context 'when manager isn\'t one of subordinates' do
-        before { employee.manager = create(:employee, company: employee.company) }
-
-        it 'will be valid' do
-          expect(employee.valid?).to be_truthy
-        end
-      end
-
       context 'with manager from another company' do
         let(:subordinate) { create(:employee, company: employee.company, manager: employee) }
 
@@ -53,6 +45,17 @@ RSpec.describe Employee, type: :model do
         it 'will contain an error' do
           expect(employee.valid?).to be_falsey
           expect(employee.errors.messages[:manager]).to include('can\'t be one of the subordinates')
+        end
+      end
+    end
+
+    describe '#manage_himself' do
+      context 'with manager from another company' do
+        before { employee.manager = employee }
+
+        it 'will contain an error' do
+          expect(employee.valid?).to be_falsey
+          expect(employee.errors.messages[:manager]).to include('can\'t be the employee')
         end
       end
     end
