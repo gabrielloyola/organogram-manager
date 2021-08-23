@@ -17,10 +17,19 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'faker'
+require 'simplecov'
 
 # TODO: require all files from support folder dynamically
 require 'support/factory_bot'
 require 'support/helpers/json_helper'
+
+SimpleCov.configure do
+  enable_coverage :branch
+  add_group 'Models',  'app/models'
+  add_group 'GraphQL', 'app/graphql'
+end
+
+SimpleCov.start
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
