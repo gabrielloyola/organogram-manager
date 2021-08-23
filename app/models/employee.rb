@@ -22,7 +22,8 @@ class Employee < ApplicationRecord
     current_manager = manager
 
     while current_manager.present?
-      errors.add(:manager, 'can\'t be one of the subordinates') if current_manager.eql?(self)
+      return errors.add(:manager, 'can\'t be one of the subordinates') if current_manager.eql?(self)
+
       current_manager = current_manager.manager
     end
   end

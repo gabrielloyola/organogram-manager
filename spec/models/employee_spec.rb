@@ -31,7 +31,7 @@ RSpec.describe Employee, type: :model do
 
         it 'will contain an error' do
           expect(employee.valid?).to be_falsey
-          expect(employee.errors.messages[:manager]).to include('Company must be the same of the employee\'s')
+          expect(employee.errors.messages[:manager]).to include('company must be the same of the employee\'s')
         end
       end
     end
@@ -52,7 +52,7 @@ RSpec.describe Employee, type: :model do
 
         it 'will contain an error' do
           expect(employee.valid?).to be_falsey
-          expect(employee.errors.messages[:manager]).to include('Can\'t be one of the subordinates')
+          expect(employee.errors.messages[:manager]).to include('can\'t be one of the subordinates')
         end
       end
     end
