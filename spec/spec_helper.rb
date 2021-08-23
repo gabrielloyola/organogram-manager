@@ -17,7 +17,10 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'faker'
+
+# TODO: require all files from support folder dynamically
 require 'support/factory_bot'
+require 'support/helpers/json_helper'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
