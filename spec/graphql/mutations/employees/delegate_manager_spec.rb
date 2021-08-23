@@ -30,11 +30,11 @@ RSpec.describe 'Delegate manager', type: :request do
 
   before { request }
 
-  it 'will delegate the manager to the employee' do
+  it 'delegates the manager to the employee' do
     expect(employee.reload.manager).to eql(manager)
   end
 
-  it 'returns the correct employer and manager ids' do
+  it 'returns the correct employee and manager ids' do
     expect(mutation_response[:id].to_i).to eq(employee.id)
     expect(mutation_response[:manager][:id].to_i).to eq(manager.id)
   end
