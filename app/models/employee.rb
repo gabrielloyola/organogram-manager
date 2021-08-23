@@ -15,14 +15,14 @@ class Employee < ApplicationRecord
   def same_company
     return if manager.company.eql?(company)
 
-    errors.add(:manager, 'Company must be the same of the employee\'s')
+    errors.add(:manager, 'company must be the same of the employee\'s')
   end
 
   def subordinate_loop
     current_manager = manager
 
     while current_manager.present?
-      errors.add(:manager, 'Can\'t be one of the subordinates') if current_manager.eql?(self)
+      errors.add(:manager, 'can\'t be one of the subordinates') if current_manager.eql?(self)
       current_manager = current_manager.manager
     end
   end
@@ -30,7 +30,7 @@ class Employee < ApplicationRecord
   def manage_himself
     return if manager != self
 
-    errors.add(:manager, 'Can\'t be the employee')
+    errors.add(:manager, 'can\'t be the employee')
   end
 
   def delegate_subordinates
