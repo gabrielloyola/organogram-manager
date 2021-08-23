@@ -9,8 +9,6 @@ module Mutations
 
       def resolve(name:)
         Company.create!(name: name)
-      rescue ActiveRecord::RecordInvalid => e
-        GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
       end
     end
   end
