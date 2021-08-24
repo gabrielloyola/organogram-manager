@@ -42,4 +42,12 @@ RSpec.describe 'List pairs', type: :request do
       expect(json_response[:errors][0][:message]).to eq("Couldn't find Employee with 'id'=#{employee_id}")
     end
   end
+
+  context 'when employee doesn\'t have a manager' do
+    let(:employee_id) { create(:employee).id }
+
+    it 'returns the error message' do
+      expect(json_response[:errors][0][:message]).to eq('Employee doesn\'t have a manager')
+    end
+  end
 end
