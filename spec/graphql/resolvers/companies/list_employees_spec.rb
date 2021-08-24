@@ -27,7 +27,12 @@ RSpec.describe 'List employees', type: :request do
     GRAPHQL
   end
 
-  before { request }
+  before do
+    # other employees that shouldn't be on the list
+    create_pair(:employee)
+
+    request
+  end
 
   it 'retrieves only the company employees' do
     expect(query_response.pluck(:id).map(&:to_i)).to contain_exactly(*company_employees.pluck(:id))
