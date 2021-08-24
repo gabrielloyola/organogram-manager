@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Delegate manager', type: :request do
+RSpec.describe 'Unassign manager', type: :request do
   subject(:mutation_response) { json_response[:data][:unassignManager] }
 
   let(:employee) { create(:employee) }

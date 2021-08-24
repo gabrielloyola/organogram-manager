@@ -9,5 +9,11 @@ FactoryBot.define do
     trait :with_manager do
       manager { create(:employee, company: company) }
     end
+
+    trait :with_subordinates do
+      before(:create) do |employee|
+        create_pair(:employee, manager: employee, company: employee.company)
+      end
+    end
   end
 end
