@@ -2,21 +2,26 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Show company', type: :request do
-  subject(:query_response) { json_response[:data][:showCompany] }
+RSpec.describe 'List employees', type: :request do
+  subject(:query_response) { json_response[:data][:companyEmployees][:nodes] }
 
   let(:company) { create(:company) }
   let(:company_id) { company.id }
+
+  let!(:company_employees) { create_pair(:employee, company: company) }
+  let!(:other_employees) { create_pair(:employee) }
 
   let(:request) { post '/graphql', params: { query: query } }
   let(:query) do
     <<-GRAPHQL
       query {
-        showCompany(
+        companyEmployees(
           companyId: #{company_id}
         ) {
-          id
-          name
+          nodes {
+            id
+            name
+          }
         }
       }
     GRAPHQL
@@ -24,9 +29,8 @@ RSpec.describe 'Show company', type: :request do
 
   before { request }
 
-  it 'retrieves the company attributes' do
-    expect(query_response[:id].to_i).to eq(company.id)
-    expect(query_response[:name]).to eq(company.name)
+  it 'retrieves only the company employees' do
+    expect(query_response.pluck(:id).map(&:to_i)).to contain_exactly(*company_employees.pluck(:id))
   end
 
   context 'when employee id doesn\'t exists in database' do
