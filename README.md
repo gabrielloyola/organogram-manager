@@ -46,6 +46,12 @@ You can test the GraphQL endpoints with [graphql_playground-rails gem](https://g
 
 ![Playground-graphql](https://user-images.githubusercontent.com/27731771/130633038-1cad74d5-7b45-4763-a399-d7b8f5dcf1f9.png)
 
+### Test coverage
+
+The current coverage of the project is 97.3%. GraphQL files are 99.38% covered, with one line missed at schema file (pratically 100%, considering the most important part of them).
+
+ ![Test coverage](https://user-images.githubusercontent.com/27731771/130642398-48133dca-5f51-4a77-8acb-7e5ffcce42fe.png)
+
 ### Run automated tests
 
 2. Run the tests with RSpec
