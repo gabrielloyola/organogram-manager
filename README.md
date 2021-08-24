@@ -1,4 +1,4 @@
-# Qulture backend dev test
+# Qulture.Rocks backend dev test
 
 ### Requirements
 
